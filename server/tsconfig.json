@@ -7,7 +7,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "es2022",
     "target": "esnext",
     "lib": ["esnext"],
     "types": ["node"],
@@ -40,6 +40,7 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
+    "moduleResolution": "bundler",
     "skipLibCheck": true,
   }
 }

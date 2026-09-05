@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  username  String    @unique         // All Users have unique usernames
+  email     String    @unique         // All Users have unique emails
+  password  String
+  posts     Post[]        // User hasMany Posts
+  comments  Comment[]     // User hasMany Comments
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  title     String
+  content   String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)       // fields -> foreign key in this model;   references -> primary key of target model
+  comments  Comment[]     // Post hasMany Comments
+  tags      Tag[]         // Post hasMany Tags
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  content   String
+  likes     Int       @default(0)
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    Int
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String
+  post      Post[]    // Tag belongstomany Posts
+}

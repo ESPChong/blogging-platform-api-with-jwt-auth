@@ -18,7 +18,7 @@ export const registerSchema = z.object({
       passwordSecurityRegex,
       'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character.',
     ),
-  name: z
+  username: z
     .string()
     .min(4, 'Username must be 4 - 20 characters long.')
     .max(20, 'Username must be 4 - 20 characters long.'),

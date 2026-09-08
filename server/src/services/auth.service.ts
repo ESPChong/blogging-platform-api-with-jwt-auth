@@ -29,12 +29,12 @@ export class AuthService {
       data: {
         email: userData.email,
         password: hashedPassword,
-        name: userData.name,
+        username: userData.username,
       },
       select: {
         id: true,
         email: true,
-        name: true,
+        username: true,
         createdAt: true,
       },
     });
@@ -73,7 +73,7 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        username: user.username,
       },
       token,
     };

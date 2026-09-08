@@ -4,13 +4,13 @@
 // This middleware can be used for other kinds of request validation handling as well, with different schemas
 
 import type { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
+import { ZodError, type ZodType } from 'zod';
 
-export const validateRequest = (schema: any) => {
+export const validateRequest = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse(req.body);   // Validates the request body
-      next();                   // Validation succeeds -> passes the request to the next handler
+      schema.parse(req.body); // Validates the request body
+      next(); // Validation succeeds -> passes the request to the next handler
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({

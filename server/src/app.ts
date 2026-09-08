@@ -1,4 +1,4 @@
-import express, { response, type Express, type Request, type Response } from 'express';
+import express, { type Express, type Request, type Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
@@ -11,29 +11,29 @@ const app: Express = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Health Check
-app.get('/health', (req: Request, res: Response) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     success: true,
-    message: 'API is running'
+    message: 'API is running',
   });
 });
 
 // API Routes
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (_req: Request, res: Response) => {
   res.send('hello world');
 });
 
 // Auth Routes
 app.use('/api/auth', authRoutes);
 
-app.use('*', (req: Request, res: Response) => {
+app.use('*', (_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
-    message: '404 not found'
+    message: '404 not found',
   });
 });
 

@@ -5,4 +5,3 @@ coverage
 *.lock
 package-lock.json
 yarn.lock
-**/eslint.config.js

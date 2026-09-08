@@ -1,19 +1,41 @@
-version: '3.8'
-
 services:
-  api:
-    build: .
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=mysql://root:sp622002@db:3306/blog_db
+      - DATABASE_URL=mysql://corrin:Sp622002@@db:3306/blog_db
       - JWT_SECRET=c91cf30cc231e41cbbec8d96f87d17af2b045eea357241497182cdfe771e76c0
     volumes:
-      - .:/app
+      - ./server:/app
       - /app/node_modules
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5173
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      server:
+        condition: service_healthy
+    
       
   db:
     image: mysql:8.0
@@ -27,6 +49,11 @@ services:
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql_data:

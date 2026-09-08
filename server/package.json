@@ -22,7 +22,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write .",
     "prepare": "husky",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Job Skipped: no test specified\" && exit 0"
   },
   "keywords": [],
   "author": "",

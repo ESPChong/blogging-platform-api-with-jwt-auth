@@ -9,14 +9,17 @@
 - Github Actions: CI/CD
 - Swagger UI: API Documentation
 - Libraries: SPA (react-router-dom), API Calling (tan-stack-query), Auth and Hashing(jsonwebtoken, bcryptjs),, Validation (zod)
+- Formatting and Syntax: ESLint, Prettier, Husky
 
 ---
 
 ## Core Features
 
-**User Authentication**: User registration and login using password hashing and JWT tokens
-**Relational CRUD**: Allow logged-in users to create, read, update, and delete blog posts tied to their account
-**Authorization Middleware**: Ensure users can only edit or delete their own posts, unless they are an admin
-**Relational Features**: Add a nested comment system (Post -> Comments -> User) and tag filtering (e.g., `/posts?tag=tech`)
-**Pagination**: Limit API results for the main post feed (e.g., `/posts?page=1&limit=10`).
+- **User Authentication**: User registration and login using password hashing and JWT tokens
+- **Containerisation**: Application is Dockerized and production ready.
+- **Relational CRUD**: Allow logged-in users to create, read, update, and delete blog posts tied to their account
+- **Authorization Middleware**: Ensure users can only edit or delete their own posts, unless they are an admin
+- **Relational Features**: Add a nested comment system (Post -> Comments -> User) and tag filtering (e.g., `/posts?tag=tech`)
+- **Pagination**: Limit API results for the main post feed (e.g., `/posts?page=1&limit=10`).
+- **Rate Limiting**: Limiting user traffic by implementing load balancer and multiple backend instances.
 

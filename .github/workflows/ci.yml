@@ -7,7 +7,7 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  # Job 1: Lint and Test
+  # Job 1: Lint and Test Server
   quality:
     name: Code Quality & Tests
     runs-on: ubuntu-latest
@@ -21,21 +21,29 @@ jobs:
       with:
         node-version: '24'
         cache: 'npm'
+        cache-dependency-path: |
+          client/package-lock.json
+          server/package-lock.json
         
     - name: Install dependencies
       run: npm ci
+      working-directory: ./server
       
     - name: Run ESLint
       run: npm run lint
+      working-directory: ./server
       
     - name: Run Prettier check
       run: npx prettier --check .
+      working-directory: ./server
       
     - name: Run TypeScript compiler
       run: npx tsc --noEmit
+      working-directory: ./server
       
     - name: Run tests
       run: npm test
+      working-directory: ./server
       env:
         NODE_ENV: test
         JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -44,7 +52,7 @@ jobs:
     - name: Upload coverage reports
       uses: codecov/codecov-action@v4
       with:
-        file: ./coverage/lcov.info
+        file: ./server/coverage/lcov.info
         flags: unittests
 
   # Job 2: Build and Push Docker Image
@@ -106,12 +114,15 @@ jobs:
       with:
         node-version: '24'
         cache: 'npm'
+        cache-dependency-path: server/package-lock.json
         
     - name: Install dependencies
       run: npm ci
+      working-directory: ./server
       
     - name: Run database migrations
       run: npx prisma migrate deploy
+      working-directory: ./server
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL_PRODUCTION }}
         
@@ -122,7 +133,7 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
-          cd /var/www/blogging-platform-api
+          cd /var/www/blogging-platform-api/server
           git pull origin main
           npm ci --only=production
           npx prisma generate

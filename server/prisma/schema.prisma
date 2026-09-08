@@ -17,7 +17,7 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   createdAt DateTime  @default(now())
-  username  String    @unique         // All Users have unique usernames
+  username  String
   email     String    @unique         // All Users have unique emails
   password  String
   posts     Post[]        // User hasMany Posts

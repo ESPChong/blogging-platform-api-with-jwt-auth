@@ -1,3 +1,8 @@
+// Schema for Authentication
+// Checks password, email and name, ensuring the correct format before it enters the database
+// Used by the middleware
+// Implements the zod library
+
 import { z } from 'zod';
 
 const passwordSecurityRegex : RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^()_-])[A-Za-z\d@$!%*?&#^()_-]+$/;
@@ -25,3 +30,5 @@ export const loginSchema = z.object({
     password: z.string()
         .min(1, 'Password is required.')
 });
+
+export type RegisterInput = z.infer<typeof registerSchema>;

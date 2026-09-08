@@ -3,3 +3,6 @@ SETUP.md
 
 # IDE Config
 .vscode
+
+# Secrets
+.secrets

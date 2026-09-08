@@ -7,8 +7,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/blog_dev
-      - JWT_SECRET=your_development_jwt_secret
+      - DATABASE_URL=mysql://root:sp622002@db:3306/blog_db
+      - JWT_SECRET=c91cf30cc231e41cbbec8d96f87d17af2b045eea357241497182cdfe771e76c0
     volumes:
       - .:/app
       - /app/node_modules
@@ -16,15 +16,17 @@ services:
       - db
       
   db:
-    image: postgres:15-alpine
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=blog_dev
+      - MYSQL_ROOT_PASSWORD=sp622002
+      - MYSQL_DATABASE=blog_db
+      - MYSQL_USER=corrin
+      - MYSQL_PASSWORD=Sp622002@
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     ports:
-      - "5432:5432"
+      - "3306:3306"
 
 volumes:
-  postgres_data:
+  mysql_data:

@@ -7,7 +7,7 @@ import globals from 'globals';
 export default [
   // 1. Ignore patterns (replaces ignorePatterns)
   {
-    ignores: ['dist', 'node_modules', 'build', '*.js', 'coverage'],
+    ignores: ['dist', 'node_modules', 'build', '*.js', 'coverage', '/src/generated/prisma'],
   },
 
   // 2. Base ESLint recommended rules

@@ -2,12 +2,14 @@ services:
   server:
     build: 
       context: ./server
-      dockerfile: ./server/Dockerfile
+      dockerfile: Dockerfile
+      target: builder
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=mysql://corrin:Sp622002@@db:3306/blog_db
+      - DATABASE_URL=mysql://corrin:Sp622002%40@db:3306/blog_db
       - JWT_SECRET=c91cf30cc231e41cbbec8d96f87d17af2b045eea357241497182cdfe771e76c0
     volumes:
       - ./server:/app
@@ -24,7 +26,7 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: ./client/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     environment:
@@ -48,7 +50,7 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s

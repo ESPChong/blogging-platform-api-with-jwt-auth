@@ -30,7 +30,7 @@ app.get('/', (_req: Request, res: Response) => {
 // Auth Routes
 app.use('/api/auth', authRoutes);
 
-app.use('*', (_req: Request, res: Response) => {
+app.use('/*splat', (_req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     message: '404 not found',

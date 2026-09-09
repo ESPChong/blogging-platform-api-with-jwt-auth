@@ -59,12 +59,13 @@ jobs:
         file: ./server/coverage/lcov.info
         flags: unittests
 
-  # Job 2: Build and Push Docker Image
+  # Job 2: Build and Push Docker Image (Skipped for dev)
   build:
     name: Build & Push Docker Image
     needs: quality
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: false
+    # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
     - name: Checkout code
@@ -100,12 +101,13 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-  # Job 3: Deploy to Production
+  # Job 3: Deploy to Production (Skipped for dev)
   deploy:
     name: Deploy to Production
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: false
+    # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment: production
     
     steps:

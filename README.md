@@ -1,6 +1,6 @@
-# Blogging Platform API with JWT Auth
+# Chatter - Production-Ready Blogging Platform API with JWT Auth
 
-A production-ready, containerized blogging platform API with JWT authentication, built with TypeScript, Express.js, React, and MySQL. The project features comprehensive authentication, relational CRUD operations, pagination, rate limiting, and complete CI/CD pipeline.
+This is Chatter - a production-ready, containerized blogging platform API with JWT authentication, built with TypeScript, Express.js, React, and MySQL. The project features comprehensive authentication, relational CRUD operations, pagination, rate limiting, and complete CI/CD pipeline.
 
 **Repository:** [https://github.com/ESPChong/blogging-platform-api-with-jwt-auth](https://github.com/ESPChong/blogging-platform-api-with-jwt-auth)
 
